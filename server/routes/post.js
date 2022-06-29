@@ -7,8 +7,8 @@ const router = express.Router();
 router
   .post('/login', async (req, res) => {
     try {
-      const Post = await Post.login(req.body.postname, req.body.password);
-      res.send({...post, password: undefined});
+      const Post = await Post.login(req.body.postname, req.body.postid, req.body.postcontent);
+      res.send({...post });
     } catch(error) {
       res.status(401).send({ message: error.message });
     }
@@ -16,8 +16,8 @@ router
 
   .post('/register', async (req, res) => {
     try {
-      const post = await Post.register(req.body.postname, req.body.password);
-      res.send({...post, password: undefined});
+      const post = await Post.register(req.body.postname, req.body.postid, req.body.postcontent);
+      res.send({...post });
     } catch(error) {
       res.status(401).send({ message: error.message });
     }
@@ -25,8 +25,8 @@ router
 
   .put('/update', async (req, res) => {
     try {
-      const post = await Post.updatePassword(req.body.id, req.body.password);
-      res.send({...post, password: undefined});
+      const post = await Post.updatePost(req.body.postname, req.body.postid, req.body.postcontent);
+      res.send({...post});
     } catch(error) {
       res.status(401).send({ message: error.message });
     }
@@ -34,7 +34,7 @@ router
 
   .delete('/delete', async (req, res) => {
     try {
-      await Post.deletePost(req.body.id);
+      await Post.deletePost(req.body.postname, req.body.postid, req.body.postcontent);
       res.send({ success: "Account deleted" });
     } catch(error) {
       res.status(401).send({ message: error.message });

@@ -4,9 +4,7 @@ const mongoose = require("mongoose");
 // 2. create schema for entity
 const commentSchema = new mongoose.Schema({
   commentname: { type: String, unique: true, required: true},
-  password: { type: String, required: true},
-  followers: [String],
-  following: [String]
+  commentid: { type: String, required: true},
 })
 
 // 3. create model of schema
@@ -14,23 +12,23 @@ const Comment = mongoose.model("Comment", commentSchema);
 
 // 4. create CRUD functions on model
 //CREATE a comment
-async function register(commentname, password) {
+async function register(commentname, commentid) {
   const comment = await getcomment(commentname);
   if(comment) throw Error('commentname already in use');
 
   const newComment = await Comment.create({
     commentname: commentname,
-    password: password
+    commentid: commentid
   });
 
   return newComment;
 }
 
 // READ a comment
-async function login(commentname, password) {
+async function login(commentname, commentid) {
   const comment = await getComment(commentname);
   if(!comment) throw Error('Comment not found');
-  if(comment.password != password) throw Error('Wrong Password');
+  if(comment.commentid !=commentid ) throw Error('id not found');
 
   return comment;
 }
