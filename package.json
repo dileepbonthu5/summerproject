@@ -1,21 +1,32 @@
 {
   "name": "summerproject",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "author": "",
+  "author": "dileep",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongodb": "^4.7.0",
     "mongoose": "^6.3.8"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
-  }
+    "concurrently": "^7.2.2",
+    "nodemon": "^2.0.18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dileepbonthu5/summerproject.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dileepbonthu5/summerproject/issues"
+  },
+  "homepage": "https://github.com/dileepbonthu5/summerproject#readme",
+  "description": ""
 }

@@ -14,13 +14,14 @@ const Post = mongoose.model("Post", postSchema);
 
 // 4. create CRUD functions on model
 //CREATE a post
-async function register(postname, password) {
+async function register(postname,postid,postcontent) {
   const post = await getPost(postname);
   if(post) throw Error('Postname already in use');
 
   const newPost = await Post.create({
     postname: postname,
-    password: password
+    postid: postid,
+    postcontent:postcontent
   });
 
   return newPost;
