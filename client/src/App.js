@@ -5,6 +5,7 @@ import About from "./components/pages/About.js";
 import Navbar from "./components/pages/Navbar.js";
 import Login from "./components/pages/Login.js";
 import Register from "./components/pages/Register.js";
+import Profile from "./components/pages/Profile.js";
 
 const sports = [
   {
@@ -31,6 +32,7 @@ function App() {
             <Route path="sports" element={<Sports sports={sports}/>}/>
             <Route path="register" element={<Register />}/>
             <Route path="login" element={<Login />}/>
+            <Route path="profile" element={<Profile />}/>
           </Route>
         </Routes>
       </BrowserRouter>
