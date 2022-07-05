@@ -1,9 +1,11 @@
 import './App.css';
-import Sports from "./components/Sports";
-import About from "./components/About.js";
-import Navbar from "./components/Navbar.js";
-import Login from "./components/Login.js";
-import Register from "./components/Register.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sports from "./components/pages/Sports.js";
+import About from "./components/pages/About.js";
+import Navbar from "./components/pages/Navbar.js";
+import Login from "./components/pages/Login.js";
+import Register from "./components/pages/Register.js";
+
 const sports = [
   {
       id: 1,
@@ -22,11 +24,17 @@ const sports = [
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <About />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Navbar />}>
+            <Route index element={<About />}/>
+            <Route path="sports" element={<Sports sports={sports}/>}/>
+            <Route path="register" element={<Register />}/>
+            <Route path="login" element={<Login />}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
 
-      <h1>SportsApp</h1>
-      <Sports sports={sports}/>
     </div>
   );
 }
