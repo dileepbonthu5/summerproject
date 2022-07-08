@@ -1,6 +1,6 @@
 export async function fetchData(route='', data={}, methodType) {
   //sending over our data to specified route in server
-  const response = await fetch(`http://localhost:3001${route}`, {
+  const response = await fetch(`https://bonthusumbeproject.herokuapp.com/${route}`, {
     method: methodType,
     headers: {
       'Content-Type': 'application/json'
