@@ -1,58 +1,53 @@
-// 1. import mongoose
+//1. import mongoose
 const mongoose = require("mongoose");
 
-// 2. create schema for entity
+//2. create schema for entity
 const postSchema = new mongoose.Schema({
-  postname: { type: String, unique: true, required: true},
-  password: { type: String, required: true},
-  followers: [String],
-  following: [String]
+  posttitle: { type: String, required: true},
+  postcontent: { type: String, required: true},
+  userid: { type: String, required: true}
 })
 
-// 3. create model of schema
+//3. create model of schema
 const Post = mongoose.model("Post", postSchema);
 
-// 4. create CRUD functions on model
+//4. create CRUD functions on model
 //CREATE a post
-async function register(postname,postid,postcontent) {
-  const post = await getPost(postname);
-  if(post) throw Error('Postname already in use');
+async function create(userid,posttitle, postcontent) {
 
   const newPost = await Post.create({
-    postname: postname,
-    postid: postid,
-    postcontent:postcontent
+    postid: userid,
+    posttitle: posttitle,
+    postcontent: postcontent,
+    userid: userid
   });
-
   return newPost;
 }
 
-// READ a post
-async function login(postname, password) {
-  const post = await getPost(postname);
-  if(!post) throw Error('Post not found');
-  if(post.password != password) throw Error('Wrong Password');
-
+//READ a post
+async function read(userid) {
+  const post = await Post.find({"userid": userid});
   return post;
 }
 
-// UPDATE
-async function updatePassword(id, password) {
-  const post = await Post.updateOne({"_id": id}, {$set: { password: password}});
+//UPDATE
+async function updatePost(id, posttitle, postcontent) {
+  const post = await Post.updateOne({"_id": id}, {$set: { posttitle: posttitle, postcontent: postcontent }});
   return post;
 }
 
 //DELETE
 async function deletePost(id) {
-  await Post.deleteOne({"_id": id});
+  const post = await Post.deleteOne({"_id": id});
+  return post;
 };
 
-// utility functions
-async function getPost(postname) {
-  return await Post.findOne({ "postname": postname});
-}
+//utility functions
+ async function getPost(post) {
+  return await Post.findOne({ "post": post});
+ }
 
-// 5. export all functions we want to access in route files
-module.exports = { 
-  register, login, updatePassword, deletePost 
+//5. export all functions we want to access in route files
+ module.exports = { 
+  create, read, updatePost, deletePost, getPost
 };

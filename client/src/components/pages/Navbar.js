@@ -1,6 +1,7 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -11,7 +12,18 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item">
+            {location.pathname =="/profile" &&
+                    <>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/profile">Profile</Link>
+                      </li>
+                      <li className="nav-item">
+                      <Link className="nav-link" to="/Login">Logout</Link>
+                    </li>
+                    </>}
+                    {location.pathname !="/profile" &&
+                    <>
+                      <li className="nav-item">
                 <Link className="nav-link" to="/register">Register</Link>
               </li>
               <li className="nav-item">
@@ -20,9 +32,10 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link className="nav-link" to="/sports">Sports</Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/profile">Profile</Link>
-              </li>
+                    </>
+              
+               }
+              
             </ul>
           </div>
         </div>
