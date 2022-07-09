@@ -7,10 +7,10 @@ const Profile = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const [post, setPost] = useState({posttitle: '', postcontent: ''
+  const [post, setPost] = useState({postname: '', postbody: ''
   });
 
-  const { posttitle, postcontent } = post;
+  const { postname, postbody } = post;
     const onChange = (e) => setPost({ ...post, [e.target.name]: e.target.value })
     const onSubmit = (e) => {
         e.preventDefault();
@@ -18,8 +18,8 @@ const Profile = () => {
         const userid = location.state.name;
         fetchData("/post/create",
             {
-              posttitle,
-              postcontent,
+              postname,
+              postbody,
               userid
             },
             "POST")
@@ -27,8 +27,8 @@ const Profile = () => {
                 if (!data.message) {
                     console.log(data)
                     setPost({
-                      posttitle: '',
-                        postcontent: ''
+                      postname: '',
+                        postbody: ''
                     });
                     fetchData("/post/view",
                         {
@@ -91,11 +91,11 @@ const Profile = () => {
               <form onSubmit={onSubmit}>
                 <div className ="form-group mb-3">
                   <label htmlFor="exampleInputUsername">Post</label>
-                  <input type="text" className ="form-control" name="posttitle" placeholder="Enter title" onChange={onChange} value ={ posttitle}/>
+                  <input type="text" className ="form-control" name="postname" placeholder="Enter title" onChange={onChange} value ={ postname}/>
                 </div>
                 <div className ="form-group mb-3">
                   <label htmlFor="exampleInputPassword1">Contents</label>
-                  <input type="text" className ="form-control" name="postcontent" placeholder="Enter content"  onChange={onChange} value ={ postcontent}/>
+                  <input type="text" className ="form-control" name="postbody" placeholder="Enter content"  onChange={onChange} value ={ postbody}/>
                 </div>
                 <button type="submit" className ="btn btn-primary mb-3">Create</button>
               </form>
@@ -105,8 +105,8 @@ const Profile = () => {
           <div className="row justify-content-center">
             <div className="card mb-3 col-md-8 col-xl-6">
               <div className="card-body">
-                <h5 className="card-title">{post.posttitle}</h5>
-                <p className="card-text">{post.postcontent}</p>
+                <h5 className="card-title">{post.postname}</h5>
+                <p className="card-text">{post.postbody}</p>
                 <a  onClick={e=> delelePost(e,post)} className="card-link danger">Delete</a>
               </div>
             </div>
